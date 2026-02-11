@@ -1,0 +1,699 @@
+:root {
+  --bg: #ffe3ea;
+  --pink: #f67aa8;
+  --pink-deep: #f2558f;
+  --pink-soft: #ffd4e1;
+  --text: #c43b62;
+  --shadow: rgba(246, 122, 168, 0.35);
+  --yellow: #fff2b4;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: "Baloo 2", cursive;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.page {
+  position: relative;
+  z-index: 1;
+  padding: 0 6vw 80px;
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+  align-items: center;
+}
+
+/* =========================
+   FLOATING HEARTS
+========================= */
+.hearts {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.heart {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background: #e85a8f;
+  transform: rotate(45deg);
+  opacity: 0.7;
+  animation: floatHeart 10s linear infinite;
+}
+
+.heart::before,
+.heart::after {
+  content: "";
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background: #e85a8f;
+  border-radius: 50%;
+}
+
+.heart::before {
+  top: -6px;
+  left: 0;
+}
+
+.heart::after {
+  left: -6px;
+  top: 0;
+}
+
+/* =========================
+   INTRO (CENTERED + BIGGER)
+========================= */
+.intro {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 12px;
+  margin: 0 auto;
+}
+
+.intro-envelope {
+  display: flex;
+  justify-content: center;
+}
+
+.intro-text {
+  text-align: center;
+  max-width: 650px;
+}
+
+.intro-text h1 {
+  font-family: "Patrick Hand", cursive;
+  font-size: clamp(2.6rem, 4vw, 3.4rem);
+  color: #ef5e8f;
+  text-shadow: 0 8px 18px rgba(255, 125, 170, 0.45);
+}
+
+.intro-hidden {
+  opacity: 0;
+  height: 0;
+  overflow: hidden;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+/* =========================
+   BIG INTRO ENVELOPE
+========================= */
+.envelope {
+  width: 200px;
+  height: 130px;
+  position: relative;
+  margin: 0 auto;
+}
+
+.envelope-large {
+  width: 320px;
+  height: 210px;
+}
+
+.envelope-body {
+  width: 100%;
+  height: 100%;
+  background: #f59ab8;
+  border-radius: 16px;
+  position: absolute;
+  inset: 0;
+  box-shadow: 0 18px 30px rgba(246, 122, 168, 0.35);
+}
+
+.envelope-flap {
+  position: absolute;
+  inset: 0;
+  background: #f277a0;
+  clip-path: polygon(0 0, 50% 55%, 100% 0);
+  border-radius: 16px;
+}
+
+.envelope-seal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: #ffd9e7;
+  display: grid;
+  place-items: center;
+  font-size: 1.4rem;
+}
+
+.tap-btn {
+  position: absolute;
+  bottom: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  border: none;
+  background: #f05c8f;
+  color: #fff;
+  padding: 12px 34px;
+  border-radius: 999px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  box-shadow: 0 10px 20px rgba(240, 92, 143, 0.45);
+  font-weight: 600;
+}
+
+/* =========================
+   ENVELOPE GRID
+========================= */
+.envelope-grid {
+  display: grid;
+  gap: 26px;
+  grid-template-columns: repeat(2, 1fr);
+  max-width: 520px;
+  width: 100%;
+  margin-top: 0;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(20px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.envelope-grid.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.envelope-grid.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(20px);
+}
+
+/* =========================
+   ENVELOPE CARDS
+========================= */
+.envelope-card {
+  width: 220px;
+  height: 145px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  position: relative;
+  font-family: "Baloo 2", cursive;
+  color: #fff;
+  display: grid;
+  place-items: center;
+  border-radius: 14px;
+  overflow: visible;
+
+  perspective: 900px;
+
+  opacity: 0;
+  transform: scale(0.7);
+}
+
+.envelope-card span {
+  position: relative;
+  z-index: 80;
+  font-size: 1rem;
+}
+
+.envelope-card:hover {
+  transform: translateY(-4px) scale(1.02);
+}
+
+/* =========================
+   ENVELOPES FLY IN (4 CORNERS)
+========================= */
+.envelope-grid.is-visible .envelope-card {
+  animation: flyIn 0.9s ease forwards;
+}
+
+.envelope-grid.is-visible .envelope-card:nth-child(1) {
+  --fromX: -320px;
+  --fromY: -240px;
+  animation-delay: 0.05s;
+}
+
+.envelope-grid.is-visible .envelope-card:nth-child(2) {
+  --fromX: 320px;
+  --fromY: -240px;
+  animation-delay: 0.15s;
+}
+
+.envelope-grid.is-visible .envelope-card:nth-child(3) {
+  --fromX: -320px;
+  --fromY: 260px;
+  animation-delay: 0.25s;
+}
+
+.envelope-grid.is-visible .envelope-card:nth-child(4) {
+  --fromX: 320px;
+  --fromY: 260px;
+  animation-delay: 0.35s;
+}
+
+@keyframes flyIn {
+  0% {
+    opacity: 0;
+    transform: translate(var(--fromX), var(--fromY)) scale(0.7);
+  }
+  70% {
+    opacity: 1;
+    transform: translate(0, 0) scale(1.05);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+  }
+}
+
+/* ==============================
+   ENVELOPE STRUCTURE
+============================== */
+.mini-envelope {
+  position: absolute;
+  inset: 0;
+  border-radius: 14px;
+  overflow: visible;
+  z-index: 2;
+}
+
+.mini-body {
+  position: absolute;
+  inset: 0;
+  background: #f2749f;
+  border-radius: 14px;
+  z-index: 1;
+  box-shadow: 0 12px 24px rgba(246, 122, 168, 0.4);
+}
+
+/* left fold */
+.mini-envelope::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #f58fb3;
+  clip-path: polygon(0 0, 50% 55%, 0 100%);
+  z-index: 2;
+  opacity: 0.95;
+}
+
+/* right fold */
+.mini-envelope::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #f58fb3;
+  clip-path: polygon(100% 0, 50% 55%, 100% 100%);
+  z-index: 2;
+  opacity: 0.95;
+}
+
+/* bottom fold */
+.mini-body::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #f06d9d;
+  clip-path: polygon(0 100%, 50% 55%, 100% 100%);
+  z-index: 2;
+}
+
+/* top flap */
+.mini-flap {
+  position: absolute;
+  inset: 0;
+  background: #f5a0be;
+  clip-path: polygon(0 0, 50% 55%, 100% 0);
+  border-radius: 14px;
+
+  transform-origin: top center;
+  transform: rotateX(0deg);
+  transition: transform 0.6s ease;
+
+  z-index: 10;
+}
+
+/* letter */
+.pop-letter {
+  position: absolute;
+  width: 86%;
+  height: 105px;
+  left: 50%;
+  top: 30px;
+
+  transform: translateX(-50%) translateY(50px);
+  opacity: 0;
+
+  background: #fffaf0;
+  border-radius: 12px;
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.18);
+
+  z-index: 60;
+  transition: all 0.75s ease;
+}
+
+/* open flap */
+.envelope-card.opening .mini-flap {
+  transform: rotateX(180deg);
+}
+
+/* letter out */
+.envelope-card.opening .pop-letter {
+  transform: translateX(-50%) translateY(-85px);
+  opacity: 1;
+}
+
+/* =========================
+   MESSAGE PANEL (UPDATED)
+========================= */
+.message-panel {
+  display: none;
+  justify-content: center;
+  align-items: flex-start;
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  padding: 30px 16px 80px;
+  width: 100%;
+  background: var(--bg);
+  overflow-y: auto;
+}
+
+.message-panel.active {
+  display: flex;
+}
+
+.message-envelope {
+  width: 100%;
+  max-width: 420px;
+  position: relative;
+}
+
+/* MAIN CARD */
+.message-card-body {
+  width: 100%;
+  background: var(--yellow);
+  border-radius: 26px;
+  padding: 18px;
+  text-align: center;
+  box-shadow: 0 20px 40px rgba(246, 122, 168, 0.35);
+  animation: fadeInScale 0.6s ease;
+}
+
+/* PHOTO BOX */
+.message-image {
+  width: 100%;
+  height: 250px;
+  border-radius: 22px;
+  overflow: hidden;
+  background: #ffe0ea;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+/* ✅ FULL PHOTO (NO CUT) */
+.message-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+}
+
+/* TEXT */
+.message-content {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.message-content h2 {
+  font-size: 1.6rem;
+  margin: 0;
+  color: #c43b62;
+}
+
+.message-content p {
+  font-size: 1.05rem;
+  margin: 0;
+  line-height: 1.7;
+  color: #c43b62;
+}
+
+/* BUTTONS */
+.love-btn {
+  border: none;
+  background: #f05c8f;
+  color: #fff;
+  border-radius: 999px;
+  padding: 14px 20px;
+  font-size: 1.05rem;
+  cursor: pointer;
+  width: 100%;
+  box-shadow: 0 8px 16px rgba(240, 92, 143, 0.3);
+  transition: all 0.2s ease;
+  font-weight: 700;
+}
+
+.love-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 20px rgba(240, 92, 143, 0.4);
+}
+
+.back-btn {
+  border: none;
+  background: #f05c8f;
+  color: #fff;
+  border-radius: 999px;
+  padding: 16px 20px;
+  font-size: 1.3rem;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 16px;
+  box-shadow: 0 8px 16px rgba(240, 92, 143, 0.25);
+  font-weight: 800;
+}
+
+/* =========================
+   FINAL SCREEN
+========================= */
+.final-screen {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  background: var(--bg);
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+  overflow-y: auto;
+}
+
+.final-screen.active {
+  display: flex;
+}
+
+.final-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  max-width: 700px;
+  text-align: center;
+  animation: fadeInScale 0.8s ease;
+}
+
+.final-image {
+  width: 100%;
+  max-width: 600px;
+  height: 400px;
+  object-fit: cover;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(246, 122, 168, 0.4);
+}
+
+.final-content h2 {
+  font-family: "Patrick Hand", cursive;
+  font-size: 2.2rem;
+  color: #ef5e8f;
+  text-shadow: 0 4px 8px rgba(255, 125, 170, 0.3);
+}
+
+.final-content p {
+  font-size: 1.1rem;
+  color: #c43b62;
+  line-height: 1.8;
+}
+
+.restart-btn {
+  border: none;
+  background: #f05c8f;
+  color: #fff;
+  border-radius: 999px;
+  padding: 14px 32px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  box-shadow: 0 8px 16px rgba(240, 92, 143, 0.4);
+  transition: all 0.3s ease;
+  font-weight: 600;
+}
+
+.restart-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(240, 92, 143, 0.5);
+}
+
+/* =========================
+   ANIMATIONS
+========================= */
+@keyframes floatHeart {
+  0% {
+    transform: translateY(110vh) rotate(45deg) scale(0.6);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateY(-10vh) rotate(45deg) scale(1);
+    opacity: 0;
+  }
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ===========================================
+   RESPONSIVE
+=========================================== */
+
+/* Tablet */
+@media (max-width: 900px) {
+  .page {
+    padding: 0 4vw 70px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 700px) {
+  .page {
+    padding: 0 14px 70px;
+  }
+
+  /* Intro */
+  .envelope-large {
+    width: 270px;
+    height: 180px;
+  }
+
+  .intro-text h1 {
+    font-size: 2.1rem;
+    line-height: 1.15;
+  }
+
+  /* Grid becomes 1 column */
+  .envelope-grid {
+    grid-template-columns: 1fr;
+    max-width: 420px;
+    gap: 18px;
+  }
+
+  /* Card becomes full width */
+  .envelope-card {
+    width: 100%;
+    max-width: 360px;
+    height: 140px;
+    margin: 0 auto;
+  }
+
+  .envelope-card span {
+    font-size: 1.05rem;
+  }
+
+  /* Final screen */
+  .final-screen {
+    padding: 24px 14px;
+  }
+
+  .final-image {
+    height: 260px;
+    border-radius: 18px;
+  }
+
+  .final-content h2 {
+    font-size: 1.7rem;
+  }
+
+  .final-content p {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  .restart-btn {
+    width: 100%;
+    padding: 12px 18px;
+  }
+}
+
+/* Small phones */
+@media (max-width: 420px) {
+  .intro-text h1 {
+    font-size: 1.8rem;
+  }
+
+  .envelope-large {
+    width: 240px;
+    height: 165px;
+  }
+
+  .tap-btn {
+    padding: 10px 26px;
+    font-size: 1rem;
+  }
+
+  .message-image {
+    height: 220px;
+  }
+
+  .envelope-card {
+    height: 135px;
+  }
+}

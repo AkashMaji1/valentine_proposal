@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+
+    <!-- ✅ BEST Mobile Viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+
+    <title>From My Heart</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700&family=Patrick+Hand:wght@400&display=swap"
+        rel="stylesheet" />
+
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+
+    <!-- ✅ AUDIO (Hidden) -->
+    <audio id="bg-music" loop preload="auto">
+        <source src="./static/audio.mp3" type="audio/mpeg" />
+    </audio>
+
+    <div class="hearts" aria-hidden="true"></div>
+
+    <main class="page">
+
+        <!-- INTRO -->
+        <section class="intro">
+            <div class="intro-envelope">
+                <div class="envelope envelope-large">
+                    <div class="envelope-flap"></div>
+                    <div class="envelope-body"></div>
+                    <div class="envelope-seal">💌</div>
+                    <button class="tap-btn" type="button">Tap</button>
+                </div>
+            </div>
+            <div class="intro-text">
+                <h1>Something from my heart...</h1>
+            </div>
+        </section>
+
+        <!-- ENVELOPE GRID -->
+        <section class="envelope-grid" aria-live="polite">
+
+            <button class="envelope-card" data-title="You Matter 💖" data-image="./static/img1.jpeg"
+                data-text="I know I hurt you, and I’m truly sorry. Please believe me, it was never my intention to make you feel this way. You mean so much to me, and I hate knowing I caused you pain. I promise I won’t repeat it. Please forgive me… I really don’t want to lose you.">
+
+                <div class="mini-envelope">
+                    <div class="mini-flap"></div>
+                    <div class="mini-body"></div>
+                    <div class="pop-letter"></div>
+                </div>
+
+                <span>You Matter 💖</span>
+            </button>
+
+            <button class="envelope-card" data-title="Still you✨" data-image="./static/img2.jpeg"
+                data-text="Among everyone in this world, you hold the biggest place in my heart, and nothing will ever change that..">
+
+                <div class="mini-envelope">
+                    <div class="mini-flap"></div>
+                    <div class="mini-body"></div>
+                    <div class="pop-letter"></div>
+                </div>
+
+                <span>Still you ✨</span>
+            </button>
+
+            <button class="envelope-card" data-title="your importance❤️" data-image="./static/img3.jpeg"
+                data-text="You bring something into my life that I can’t explain. Even your presence, your voice, your silence, your little reactions, and the way you are… it all means so much to me..">
+
+                <div class="mini-envelope">
+                    <div class="mini-flap"></div>
+                    <div class="mini-body"></div>
+                    <div class="pop-letter"></div>
+                </div>
+
+                <span>your importance ❤️</span>
+            </button>
+
+            <button class="envelope-card" data-title="One More 💌" data-image="./static/img4.jpeg"
+                data-text="I don’t want arguments to create distance between us. I want love, peace, and you… always. I don't want to lose you.">
+
+                <div class="mini-envelope">
+                    <div class="mini-flap"></div>
+                    <div class="mini-body"></div>
+                    <div class="pop-letter"></div>
+                </div>
+
+                <span>One More 💌</span>
+            </button>
+
+        </section>
+
+        <!-- ✅ MESSAGE PANEL (UPDATED FOR MOBILE FULL PHOTO TOP) -->
+        <section class="message-panel" aria-live="polite">
+            <div class="message-envelope">
+
+                <!-- MAIN CARD -->
+                <div class="message-card-body">
+
+                    <!-- PHOTO TOP -->
+                    <div class="message-image">
+                        <img src="" alt="Romantic moment" />
+                    </div>
+
+                    <!-- TEXT BELOW -->
+                    <div class="message-content">
+                        <h2></h2>
+                        <p></p>
+                        <button class="love-btn" type="button">Be mine forever❓💝</button>
+                    </div>
+
+                </div>
+
+                <!-- BACK BUTTON -->
+                <button class="back-btn" type="button">Back</button>
+
+            </div>
+        </section>
+
+        <!-- FINAL SCREEN -->
+        <section class="final-screen" aria-live="polite">
+            <div class="final-content">
+                <img src="./static/img5.jpeg" alt="Couple together" class="final-image" />
+                <h2>You Mean Everything to Me ❤️</h2>
+                <p>
+                    Seeing you with your family makes me love and respect you even more.
+                    My feelings for you are true, and I also respect your family very much.
+                    With their blessings, I hope to spend my life loving you.
+                </p>
+                <button class="restart-btn" type="button">Start Again</button>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
